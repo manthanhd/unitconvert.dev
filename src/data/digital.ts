@@ -126,6 +126,48 @@ export const dataStorageUnits: Unit[] = [
     aliases: ['pebibytes'],
     toBase: 1125899906842624,
   },
+  // Larger decimal units
+  {
+    id: 'zettabyte',
+    categoryId: 'data-storage',
+    name: 'Zettabyte',
+    abbreviations: ['ZB'],
+    aliases: ['zettabytes'],
+    toBase: 1e21,
+  },
+  {
+    id: 'yottabyte',
+    categoryId: 'data-storage',
+    name: 'Yottabyte',
+    abbreviations: ['YB'],
+    aliases: ['yottabytes'],
+    toBase: 1e24,
+  },
+  // Larger binary units
+  {
+    id: 'exbibyte',
+    categoryId: 'data-storage',
+    name: 'Exbibyte',
+    abbreviations: ['EiB'],
+    aliases: ['exbibytes'],
+    toBase: 1152921504606846976, // 1024^6
+  },
+  {
+    id: 'zebibyte',
+    categoryId: 'data-storage',
+    name: 'Zebibyte',
+    abbreviations: ['ZiB'],
+    aliases: ['zebibytes'],
+    toBase: 1180591620717411303424, // 1024^7
+  },
+  {
+    id: 'yobibyte',
+    categoryId: 'data-storage',
+    name: 'Yobibyte',
+    abbreviations: ['YiB'],
+    aliases: ['yobibytes'],
+    toBase: 1208925819614629174706176, // 1024^8
+  },
 ];
 
 // ============================================================================
@@ -212,6 +254,31 @@ export const dataTransferUnits: Unit[] = [
     aliases: ['gigabytes per second'],
     toBase: 8000000000,
   },
+  // Binary transfer rates
+  {
+    id: 'kibibyte-per-second',
+    categoryId: 'data-transfer',
+    name: 'Kibibyte per second',
+    abbreviations: ['KiB/s'],
+    aliases: ['kibibytes per second'],
+    toBase: 8192, // 1024 * 8
+  },
+  {
+    id: 'mebibyte-per-second',
+    categoryId: 'data-transfer',
+    name: 'Mebibyte per second',
+    abbreviations: ['MiB/s'],
+    aliases: ['mebibytes per second'],
+    toBase: 8388608, // 1024^2 * 8
+  },
+  {
+    id: 'gibibyte-per-second',
+    categoryId: 'data-transfer',
+    name: 'Gibibyte per second',
+    abbreviations: ['GiB/s'],
+    aliases: ['gibibytes per second'],
+    toBase: 8589934592, // 1024^3 * 8
+  },
 ];
 
 // ============================================================================
@@ -289,6 +356,55 @@ export const typographyUnits: Unit[] = [
     abbreviations: ['mm'],
     aliases: ['millimeters'],
     toBase: 3.77953, // 96/25.4
+  },
+  // Viewport units (assuming 1920x1080 default viewport)
+  {
+    id: 'viewport-width',
+    categoryId: 'typography',
+    name: 'Viewport Width',
+    abbreviations: ['vw'],
+    aliases: ['vw unit', 'viewport width percent'],
+    toBase: 19.2, // 1920/100
+  },
+  {
+    id: 'viewport-height',
+    categoryId: 'typography',
+    name: 'Viewport Height',
+    abbreviations: ['vh'],
+    aliases: ['vh unit', 'viewport height percent'],
+    toBase: 10.8, // 1080/100
+  },
+  {
+    id: 'viewport-min',
+    categoryId: 'typography',
+    name: 'Viewport Min',
+    abbreviations: ['vmin'],
+    aliases: ['vmin unit'],
+    toBase: 10.8, // min(vw, vh) for 1920x1080
+  },
+  {
+    id: 'viewport-max',
+    categoryId: 'typography',
+    name: 'Viewport Max',
+    abbreviations: ['vmax'],
+    aliases: ['vmax unit'],
+    toBase: 19.2, // max(vw, vh) for 1920x1080
+  },
+  {
+    id: 'ch',
+    categoryId: 'typography',
+    name: 'Ch',
+    abbreviations: ['ch'],
+    aliases: ['character width', 'ch unit'],
+    toBase: 8, // ~0.5em for monospace
+  },
+  {
+    id: 'ex',
+    categoryId: 'typography',
+    name: 'Ex',
+    abbreviations: ['ex'],
+    aliases: ['x-height', 'ex unit'],
+    toBase: 8, // ~0.5em
   },
 ];
 
