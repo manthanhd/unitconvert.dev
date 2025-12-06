@@ -60,41 +60,6 @@ export const colorUnits: Unit[] = [
     abbreviations: ['cmyk'],
     aliases: ['cmyk color', 'cyan magenta yellow black', 'print color', 'cmyk()'],
   },
-  {
-    id: 'color-lab',
-    categoryId: 'color',
-    name: 'LAB',
-    abbreviations: ['lab', 'cielab'],
-    aliases: ['lab color', 'cie lab', 'cielab color', 'lab()'],
-  },
-  {
-    id: 'color-lch',
-    categoryId: 'color',
-    name: 'LCH',
-    abbreviations: ['lch', 'cielch'],
-    aliases: ['lch color', 'cie lch', 'cielch color', 'lch()'],
-  },
-  {
-    id: 'color-oklch',
-    categoryId: 'color',
-    name: 'OKLCH',
-    abbreviations: ['oklch'],
-    aliases: ['oklch color', 'ok lch', 'oklch()'],
-  },
-  {
-    id: 'color-oklab',
-    categoryId: 'color',
-    name: 'OKLAB',
-    abbreviations: ['oklab'],
-    aliases: ['oklab color', 'ok lab', 'oklab()'],
-  },
-  {
-    id: 'color-named',
-    categoryId: 'color',
-    name: 'Named Color',
-    abbreviations: ['named', 'css'],
-    aliases: ['css color', 'color name', 'named css color', 'css color name', 'web color'],
-  },
 ];
 
 // Export all

@@ -19,6 +19,16 @@ interface HSL {
 }
 
 /**
+ * CMYK color representation (0-100 for each channel)
+ */
+interface CMYK {
+  c: number;
+  m: number;
+  y: number;
+  k: number;
+}
+
+/**
  * Parse color input into RGB
  */
 function parseColorToRGB(value: string, format: string): RGB | null {
@@ -26,11 +36,17 @@ function parseColorToRGB(value: string, format: string): RGB | null {
 
   if (format === 'hex') {
     return parseHex(trimmed);
-  } else if (format === 'rgb') {
+  } else if (format === 'rgb' || format === 'rgba') {
     return parseRGB(trimmed);
-  } else if (format === 'hsl') {
+  } else if (format === 'hsl' || format === 'hsla') {
     const hsl = parseHSL(trimmed);
     return hsl ? hslToRGB(hsl) : null;
+  } else if (format === 'cmyk') {
+    const cmyk = parseCMYK(trimmed);
+    return cmyk ? cmykToRGB(cmyk) : null;
+  } else if (format === 'hsv') {
+    const hsv = parseHSV(trimmed);
+    return hsv ? hsvToRGB(hsv) : null;
   }
 
   return null;
@@ -112,6 +128,59 @@ function parseHSL(hsl: string): HSL | null {
     const [h, s, l] = parts.map((p) => parseFloat(p));
     if (!isNaN(h) && !isNaN(s) && !isNaN(l)) {
       return { h, s, l };
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Parse CMYK color (cmyk(c%, m%, y%, k%) or c,m,y,k)
+ */
+function parseCMYK(cmyk: string): CMYK | null {
+  // Match cmyk(c, m, y, k) format
+  const cmykMatch = cmyk.match(/cmyk\s*\(\s*([\d.]+)%?\s*,\s*([\d.]+)%?\s*,\s*([\d.]+)%?\s*,\s*([\d.]+)%?/i);
+  if (cmykMatch) {
+    return {
+      c: parseFloat(cmykMatch[1]),
+      m: parseFloat(cmykMatch[2]),
+      y: parseFloat(cmykMatch[3]),
+      k: parseFloat(cmykMatch[4]),
+    };
+  }
+
+  // Try simple comma-separated format (c, m, y, k)
+  const parts = cmyk.split(',').map((p) => p.trim().replace('%', ''));
+  if (parts.length === 4) {
+    const [c, m, y, k] = parts.map((p) => parseFloat(p));
+    if (!isNaN(c) && !isNaN(m) && !isNaN(y) && !isNaN(k)) {
+      return { c, m, y, k };
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Parse HSV/HSB color (hsv(h, s%, v%) or h,s,v)
+ */
+function parseHSV(hsv: string): HSL | null {
+  // Match hsv(h, s%, v%) or hsb format
+  const hsvMatch = hsv.match(/hs[vb]\s*\(\s*([\d.]+)\s*,\s*([\d.]+)%?\s*,\s*([\d.]+)%?/i);
+  if (hsvMatch) {
+    return {
+      h: parseFloat(hsvMatch[1]),
+      s: parseFloat(hsvMatch[2]),
+      l: parseFloat(hsvMatch[3]), // Using l to store v
+    };
+  }
+
+  // Try simple comma-separated format (h, s, v)
+  const parts = hsv.split(',').map((p) => p.trim().replace('%', ''));
+  if (parts.length === 3) {
+    const [h, s, v] = parts.map((p) => parseFloat(p));
+    if (!isNaN(h) && !isNaN(s) && !isNaN(v)) {
+      return { h, s, l: v };
     }
   }
 
@@ -223,8 +292,130 @@ function formatHSL(hsl: HSL): string {
 }
 
 /**
+ * Convert CMYK to RGB
+ */
+function cmykToRGB(cmyk: CMYK): RGB {
+  const c = cmyk.c / 100;
+  const m = cmyk.m / 100;
+  const y = cmyk.y / 100;
+  const k = cmyk.k / 100;
+
+  return {
+    r: Math.round(255 * (1 - c) * (1 - k)),
+    g: Math.round(255 * (1 - m) * (1 - k)),
+    b: Math.round(255 * (1 - y) * (1 - k)),
+  };
+}
+
+/**
+ * Convert RGB to CMYK
+ */
+function rgbToCMYK(rgb: RGB): CMYK {
+  const r = rgb.r / 255;
+  const g = rgb.g / 255;
+  const b = rgb.b / 255;
+
+  const k = 1 - Math.max(r, g, b);
+
+  if (k === 1) {
+    return { c: 0, m: 0, y: 0, k: 100 };
+  }
+
+  return {
+    c: Math.round(((1 - r - k) / (1 - k)) * 100),
+    m: Math.round(((1 - g - k) / (1 - k)) * 100),
+    y: Math.round(((1 - b - k) / (1 - k)) * 100),
+    k: Math.round(k * 100),
+  };
+}
+
+/**
+ * Format CMYK to string
+ */
+function formatCMYK(cmyk: CMYK): string {
+  return `cmyk(${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%)`;
+}
+
+/**
+ * Convert HSV to RGB
+ */
+function hsvToRGB(hsv: HSL): RGB {
+  const h = hsv.h / 360;
+  const s = hsv.s / 100;
+  const v = hsv.l / 100; // l stores v
+
+  let r: number, g: number, b: number;
+
+  const i = Math.floor(h * 6);
+  const f = h * 6 - i;
+  const p = v * (1 - s);
+  const q = v * (1 - f * s);
+  const t = v * (1 - (1 - f) * s);
+
+  switch (i % 6) {
+    case 0: r = v; g = t; b = p; break;
+    case 1: r = q; g = v; b = p; break;
+    case 2: r = p; g = v; b = t; break;
+    case 3: r = p; g = q; b = v; break;
+    case 4: r = t; g = p; b = v; break;
+    case 5: r = v; g = p; b = q; break;
+    default: r = 0; g = 0; b = 0;
+  }
+
+  return {
+    r: Math.round(r * 255),
+    g: Math.round(g * 255),
+    b: Math.round(b * 255),
+  };
+}
+
+/**
+ * Convert RGB to HSV
+ */
+function rgbToHSV(rgb: RGB): HSL {
+  const r = rgb.r / 255;
+  const g = rgb.g / 255;
+  const b = rgb.b / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
+
+  let h = 0;
+  const s = max === 0 ? 0 : delta / max;
+  const v = max;
+
+  if (delta !== 0) {
+    switch (max) {
+      case r:
+        h = ((g - b) / delta + (g < b ? 6 : 0)) / 6;
+        break;
+      case g:
+        h = ((b - r) / delta + 2) / 6;
+        break;
+      case b:
+        h = ((r - g) / delta + 4) / 6;
+        break;
+    }
+  }
+
+  return {
+    h: Math.round(h * 360),
+    s: Math.round(s * 100),
+    l: Math.round(v * 100), // l stores v
+  };
+}
+
+/**
+ * Format HSV to string
+ */
+function formatHSV(hsv: HSL): string {
+  return `hsv(${hsv.h}, ${hsv.s}%, ${hsv.l}%)`;
+}
+
+/**
  * Color conversion function
- * Converts between hex, RGB, and HSL color formats
+ * Converts between hex, RGB, HSL, CMYK, and HSV color formats
  */
 export function colorConvert(from: Unit, to: Unit, value: string): string {
   if (!value.trim()) {
@@ -248,14 +439,20 @@ export function colorConvert(from: Unit, to: Unit, value: string): string {
   }
 
   // Convert to target format
-  if (toFormat === 'hex') {
-    return rgbToHex(rgb);
-  } else if (toFormat === 'rgb') {
-    return formatRGB(rgb);
-  } else if (toFormat === 'hsl') {
-    const hsl = rgbToHSL(rgb);
-    return formatHSL(hsl);
+  switch (toFormat) {
+    case 'hex':
+      return rgbToHex(rgb);
+    case 'rgb':
+    case 'rgba':
+      return formatRGB(rgb);
+    case 'hsl':
+    case 'hsla':
+      return formatHSL(rgbToHSL(rgb));
+    case 'cmyk':
+      return formatCMYK(rgbToCMYK(rgb));
+    case 'hsv':
+      return formatHSV(rgbToHSV(rgb));
+    default:
+      return `Error: Unsupported format "${toFormat}"`;
   }
-
-  return 'Error: Unknown color format';
 }

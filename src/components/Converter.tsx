@@ -14,7 +14,7 @@ import { useRecentConversions } from '../hooks/useRecentConversions';
 import { copyToClipboard } from '../utils/clipboard';
 import { debounce } from '../utils/format';
 import { convert } from '../converters';
-import { getUnit } from '../data';
+import { getUnit, getCategory } from '../data';
 import type { Unit } from '../data/types';
 
 export function Converter() {
@@ -170,6 +170,9 @@ export function Converter() {
   // Filter to unit dropdown to same category as from unit
   const toUnitFilterCategory = state.fromUnit?.categoryId;
 
+  // Get conversion type from the fromUnit's category
+  const conversionType = state.fromUnit ? getCategory(state.fromUnit.categoryId)?.conversionType ?? 'linear' : 'linear';
+
   return (
     <div className="converter">
       <div className="converter__units">
@@ -197,6 +200,7 @@ export function Converter() {
 
       <div className="converter__values">
         <ValueInput
+          conversionType={conversionType}
           value={state.fromValue}
           onChange={handleFromValueChange}
           placeholder={!state.fromUnit || !state.toUnit ? 'Select units first' : '0'}
