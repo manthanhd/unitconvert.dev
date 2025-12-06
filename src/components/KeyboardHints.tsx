@@ -5,7 +5,10 @@ interface KeyboardHintsProps {
 export function KeyboardHints({ show = true }: KeyboardHintsProps) {
   if (!show) return null;
 
-  const isMac = navigator.platform.toLowerCase().includes('mac');
+  // Default to Mac symbols for SSR, will be correct for most dev users
+  const isMac = typeof navigator !== 'undefined'
+    ? navigator.platform.toLowerCase().includes('mac')
+    : true;
   const modKey = isMac ? '⌘' : 'Ctrl';
 
   return (
