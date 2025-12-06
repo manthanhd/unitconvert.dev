@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useId } from 'preact/hooks';
+import { useState, useRef, useEffect } from 'preact/hooks';
 import type { JSX } from 'preact';
 import { useAutocomplete } from '../hooks/useAutocomplete';
 import { Dropdown } from './Dropdown';
@@ -7,6 +7,7 @@ import { getUnit, getCategory } from '../data';
 import { trackSearchNoResults } from '../lib/analytics';
 
 interface UnitInputProps {
+  id: string;
   value: Unit | null;
   onChange: (unit: Unit | null) => void;
   placeholder?: string;
@@ -19,6 +20,7 @@ interface UnitInputProps {
 }
 
 export function UnitInput({
+  id,
   value,
   onChange,
   placeholder = 'Type to search...',
@@ -33,7 +35,7 @@ export function UnitInput({
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const [hasUserTyped, setHasUserTyped] = useState(false);
-  const listboxId = useId();
+  const listboxId = `${id}-listbox`;
 
   // Notify parent when dropdown state changes
   useEffect(() => {

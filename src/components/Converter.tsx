@@ -210,6 +210,7 @@ export function Converter() {
     <div id="converter" className="converter">
       <div className="converter__units">
         <UnitInput
+          id="from-unit"
           value={state.fromUnit}
           onChange={handleFromUnitChange}
           placeholder="From unit..."
@@ -221,6 +222,7 @@ export function Converter() {
         />
         <span className="converter__arrow">→</span>
         <UnitInput
+          id="to-unit"
           value={state.toUnit}
           onChange={handleToUnitChange}
           placeholder="To unit..."
