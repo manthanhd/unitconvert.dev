@@ -4,6 +4,7 @@ import { useAutocomplete } from '../hooks/useAutocomplete';
 import { Dropdown } from './Dropdown';
 import type { Unit, SearchableUnit } from '../data/types';
 import { getUnit, getCategory } from '../data';
+import { trackSearchNoResults } from '../lib/analytics';
 
 interface UnitInputProps {
   value: Unit | null;
@@ -134,6 +135,13 @@ export function UnitInput({
         break;
     }
   };
+
+  // Track no results when dropdown closes with no selection
+  useEffect(() => {
+    if (!isOpen && hasUserTyped && query.trim() && results.length === 0) {
+      trackSearchNoResults(query.trim());
+    }
+  }, [isOpen, hasUserTyped, query, results.length]);
 
   // Handle input changes
   const handleInput = (e: JSX.TargetedEvent<HTMLInputElement>) => {

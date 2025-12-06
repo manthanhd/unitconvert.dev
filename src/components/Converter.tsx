@@ -17,6 +17,15 @@ import { debounce } from '../utils/format';
 import { convert } from '../converters';
 import { getUnit, getCategory } from '../data';
 import type { Unit } from '../data/types';
+import {
+  trackConversion,
+  trackCopyResult,
+  trackCopyLink,
+  trackKeyboardShortcut,
+  trackReverseConversion,
+  trackRecentClick,
+  trackShareOpen,
+} from '../lib/analytics';
 
 export function Converter() {
   const [state, updateState] = useUrlState();
@@ -37,11 +46,14 @@ export function Converter() {
     result,
   });
 
-  // Debounced save to recents (500ms delay)
+  // Debounced save to recents and track conversion (500ms delay)
   const debouncedAddRecent = useMemo(
     () =>
-      debounce((fromUnit: Unit, toUnit: Unit, fromValue: string, toValue: string) => {
+      debounce((fromUnit: Unit, toUnit: Unit, fromValue: string, toValue: string, source: 'search' | 'recent' | 'url') => {
         addRecent(fromUnit, toUnit, fromValue, toValue);
+        // Track conversion analytics
+        const category = getCategory(fromUnit.categoryId);
+        trackConversion(fromUnit.id, toUnit.id, category?.name ?? 'unknown', source);
       }, 500),
     [addRecent]
   );
@@ -86,7 +98,7 @@ export function Converter() {
       // Save to recents (debounced) when both units are selected and value is entered
       if (state.fromUnit && state.toUnit && value) {
         const toValue = convert(state.fromUnit, state.toUnit, value);
-        debouncedAddRecent(state.fromUnit, state.toUnit, value, toValue);
+        debouncedAddRecent(state.fromUnit, state.toUnit, value, toValue, 'search');
       }
     },
     [updateState, state.fromUnit, state.toUnit, debouncedAddRecent]
@@ -99,6 +111,7 @@ export function Converter() {
         // Reverse convert: toUnit -> fromUnit
         const reversed = convert(state.toUnit, state.fromUnit, value);
         updateState({ fromValue: reversed });
+        trackReverseConversion();
       }
     },
     [state.fromUnit, state.toUnit, updateState]
@@ -137,19 +150,26 @@ export function Converter() {
       if (result) {
         copyToClipboard(result);
         showToast('Copied!');
+        trackCopyResult();
+        trackKeyboardShortcut('cmd+c');
       }
     },
     copyLink: () => {
       copyToClipboard(window.location.href);
       showToast('Link copied!');
+      trackCopyLink();
+      trackKeyboardShortcut('cmd+l');
     },
     share: () => {
       setIsShareModalOpen(true);
+      trackShareOpen();
+      trackKeyboardShortcut('cmd+s');
     },
     reset: () => {
       updateState({ fromUnit: null, toUnit: null, fromValue: '' });
       window.history.pushState(null, '', '/');
       focusField('fromUnit');
+      trackKeyboardShortcut('cmd+k');
     },
     isDropdownOpen: isAnyDropdownOpen,
     showToast,
@@ -163,6 +183,10 @@ export function Converter() {
       if (fromUnit && toUnit) {
         updateState({ fromUnit, toUnit, fromValue });
         focusField('fromValue');
+        trackRecentClick();
+        // Track as a conversion from recent
+        const category = getCategory(fromUnit.categoryId);
+        trackConversion(fromUnit.id, toUnit.id, category?.name ?? 'unknown', 'recent');
       }
     },
     [updateState, focusField]
@@ -230,7 +254,10 @@ export function Converter() {
         <button
           type="button"
           className="share-button"
-          onClick={() => setIsShareModalOpen(true)}
+          onClick={() => {
+            setIsShareModalOpen(true);
+            trackShareOpen();
+          }}
           aria-label="Share conversion"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
