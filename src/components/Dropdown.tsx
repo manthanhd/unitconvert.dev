@@ -7,6 +7,7 @@ const LOAD_MORE_ITEMS = 20;
 const SCROLL_THRESHOLD = 50; // pixels from bottom to trigger load
 
 interface DropdownProps {
+  id: string;
   items: SearchableUnit[];
   highlightedIndex: number;
   onSelect: (item: SearchableUnit) => void;
@@ -15,6 +16,7 @@ interface DropdownProps {
 }
 
 export function Dropdown({
+  id,
   items,
   highlightedIndex,
   onSelect,
@@ -75,8 +77,10 @@ export function Dropdown({
 
   return (
     <div
+      id={id}
       className="dropdown"
       role="listbox"
+      aria-label="Unit suggestions"
       ref={containerRef}
       onScroll={handleScroll}
     >

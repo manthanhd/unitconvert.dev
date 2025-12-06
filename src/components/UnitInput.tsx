@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'preact/hooks';
+import { useState, useRef, useEffect, useId } from 'preact/hooks';
 import type { JSX } from 'preact';
 import { useAutocomplete } from '../hooks/useAutocomplete';
 import { Dropdown } from './Dropdown';
@@ -33,6 +33,7 @@ export function UnitInput({
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const [hasUserTyped, setHasUserTyped] = useState(false);
+  const listboxId = useId();
 
   // Notify parent when dropdown state changes
   useEffect(() => {
@@ -185,6 +186,8 @@ export function UnitInput({
           aria-expanded={isOpen}
           aria-haspopup="listbox"
           aria-autocomplete="list"
+          aria-controls={listboxId}
+          aria-label={placeholder}
         />
         {value && !query && (
           <div className="unit-input__indicators">
@@ -198,6 +201,7 @@ export function UnitInput({
         )}
       </div>
       <Dropdown
+        id={listboxId}
         items={results}
         highlightedIndex={highlightedIndex}
         onSelect={handleSelect}
