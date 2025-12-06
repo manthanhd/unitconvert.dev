@@ -183,7 +183,7 @@ export function Converter() {
   const conversionType = state.fromUnit ? getCategory(state.fromUnit.categoryId)?.conversionType ?? 'linear' : 'linear';
 
   return (
-    <div className="converter">
+    <div id="converter" className="converter">
       <div className="converter__units">
         <UnitInput
           value={state.fromUnit}
