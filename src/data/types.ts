@@ -33,6 +33,8 @@ export interface Unit {
   toBaseFormula?: (value: number) => number;
   /** For offset conversions (temperature): convert from base unit to this unit */
   fromBaseFormula?: (value: number) => number;
+  /** For timezone conversions: IANA timezone identifier */
+  iana?: string;
 }
 
 /**

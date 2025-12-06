@@ -128,6 +128,17 @@
   white-space: nowrap;
 }
 
+.dropdown__load-more {
+  padding: 8px 14px;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-dropdown);
+  position: sticky;
+  bottom: 0;
+}
+
 /* Value inputs */
 .value-input {
   flex: 1;

@@ -7,6 +7,8 @@ import { digitalCategories, digitalUnits } from './digital';
 import { electricalCategories, electricalUnits } from './electrical';
 import { scientificCategories, scientificUnits } from './scientific';
 import { everydayCategories, everydayUnits } from './everyday';
+import { colorCategories, colorUnits } from './color';
+import { encodingCategories, encodingUnits } from './encoding';
 
 // Aggregate all categories and units
 const allCategories: Category[] = [
@@ -18,6 +20,8 @@ const allCategories: Category[] = [
   ...electricalCategories,
   ...scientificCategories,
   ...everydayCategories,
+  ...colorCategories,
+  ...encodingCategories,
 ];
 
 const allUnits: Unit[] = [
@@ -29,6 +33,8 @@ const allUnits: Unit[] = [
   ...electricalUnits,
   ...scientificUnits,
   ...everydayUnits,
+  ...colorUnits,
+  ...encodingUnits,
 ];
 
 // Create lookup maps for fast access

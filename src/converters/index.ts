@@ -2,16 +2,20 @@ import type { Unit, ConversionType } from '../data/types';
 import { getCategory } from '../data';
 import { linearConvert } from './linear';
 import { temperatureConvert } from './temperature';
+import { formulaConvert } from './formula';
+import { colorConvert } from './color';
+import { timezoneConvert } from './timezone';
+import { baseConvert } from './base';
 
 type ConverterFn = (from: Unit, to: Unit, value: string) => string;
 
 const converters: Record<ConversionType, ConverterFn> = {
   linear: linearConvert,
   offset: temperatureConvert,
-  formula: linearConvert, // TODO: implement custom formula converter
-  timezone: () => 'TODO: timezone', // TODO: implement
-  base: () => 'TODO: base', // TODO: implement
-  color: () => 'TODO: color', // TODO: implement
+  formula: formulaConvert,
+  timezone: timezoneConvert,
+  base: baseConvert,
+  color: colorConvert,
 };
 
 /**

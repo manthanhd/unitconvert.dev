@@ -292,6 +292,52 @@ export const typographyUnits: Unit[] = [
   },
 ];
 
+// ============================================================================
+// NUMBER BASE
+// ============================================================================
+
+export const numberBaseCategory: Category = {
+  id: 'number-base',
+  name: 'Number Base',
+  conversionType: 'base',
+};
+
+// The toBase property here represents the numeric base (radix) itself
+export const numberBaseUnits: Unit[] = [
+  {
+    id: 'binary',
+    categoryId: 'number-base',
+    name: 'Binary',
+    abbreviations: ['bin', 'base-2'],
+    aliases: ['base 2', 'base2'],
+    toBase: 2,
+  },
+  {
+    id: 'octal',
+    categoryId: 'number-base',
+    name: 'Octal',
+    abbreviations: ['oct', 'base-8'],
+    aliases: ['base 8', 'base8'],
+    toBase: 8,
+  },
+  {
+    id: 'decimal',
+    categoryId: 'number-base',
+    name: 'Decimal',
+    abbreviations: ['dec', 'base-10'],
+    aliases: ['base 10', 'base10'],
+    toBase: 10,
+  },
+  {
+    id: 'hexadecimal',
+    categoryId: 'number-base',
+    name: 'Hexadecimal',
+    abbreviations: ['hex', 'base-16'],
+    aliases: ['base 16', 'base16'],
+    toBase: 16,
+  },
+];
+
 // Export all
-export const digitalCategories = [dataStorageCategory, dataTransferCategory, typographyCategory];
-export const digitalUnits = [...dataStorageUnits, ...dataTransferUnits, ...typographyUnits];
+export const digitalCategories = [dataStorageCategory, dataTransferCategory, typographyCategory, numberBaseCategory];
+export const digitalUnits = [...dataStorageUnits, ...dataTransferUnits, ...typographyUnits, ...numberBaseUnits];

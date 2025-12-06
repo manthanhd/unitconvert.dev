@@ -9,12 +9,12 @@ const searchableUnits = buildSearchableUnits();
 
 /**
  * Hook for fuzzy searching units
+ * Returns all matching results - progressive loading is handled by the Dropdown component
  */
 export function useAutocomplete(
   query: string,
   filterCategoryId?: string,
-  priorityCategoryId?: string,
-  maxResults = 10
+  priorityCategoryId?: string
 ): SearchableUnit[] {
   // Create fuse instance, optionally filtered by category
   const fuse = useMemo(() => {
@@ -29,7 +29,7 @@ export function useAutocomplete(
     const trimmedQuery = query.trim();
 
     if (!trimmedQuery) {
-      // When no query, show units
+      // When no query, show all units
       const units = filterCategoryId
         ? searchableUnits.filter((u) => u.categoryId === filterCategoryId)
         : searchableUnits;
@@ -38,10 +38,10 @@ export function useAutocomplete(
       if (priorityCategoryId && !filterCategoryId) {
         const priorityUnits = units.filter((u) => u.categoryId === priorityCategoryId);
         const otherUnits = units.filter((u) => u.categoryId !== priorityCategoryId);
-        return [...priorityUnits, ...otherUnits].slice(0, maxResults);
+        return [...priorityUnits, ...otherUnits];
       }
 
-      // No filter and no priority - show diverse set from different categories
+      // No filter and no priority - group by category for better organization
       if (!filterCategoryId) {
         const byCategory = new Map<string, SearchableUnit[]>();
         for (const unit of units) {
@@ -53,9 +53,9 @@ export function useAutocomplete(
         const diverse: SearchableUnit[] = [];
         const categories = Array.from(byCategory.values());
         let index = 0;
-        while (diverse.length < maxResults && categories.some((c) => c.length > index)) {
+        while (categories.some((c) => c.length > index)) {
           for (const catUnits of categories) {
-            if (catUnits[index] && diverse.length < maxResults) {
+            if (catUnits[index]) {
               diverse.push(catUnits[index]);
             }
           }
@@ -64,14 +64,13 @@ export function useAutocomplete(
         return diverse;
       }
 
-      return units.slice(0, maxResults);
+      return units;
     }
 
     return fuse
       .search(trimmedQuery)
-      .slice(0, maxResults)
       .map((r) => r.item);
-  }, [query, fuse, maxResults, filterCategoryId, priorityCategoryId]);
+  }, [query, fuse, filterCategoryId, priorityCategoryId]);
 
   return results;
 }

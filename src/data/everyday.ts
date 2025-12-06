@@ -7,11 +7,12 @@ import type { Category, Unit } from './types';
 export const fuelEconomyCategory: Category = {
   id: 'fuel-economy',
   name: 'Fuel Economy',
-  conversionType: 'linear', // We'll handle the inverse relationship in the conversion factor
+  conversionType: 'formula',
 };
 
-// Base unit: kilometers per liter
-// Note: mpg and L/100km have inverse relationships, handled via conversion factors
+// Base unit: kilometers per liter (km/L)
+// Fuel economy conversions use formulas because some units have inverse relationships
+// (e.g., L/100km is the inverse of km/L)
 export const fuelEconomyUnits: Unit[] = [
   {
     id: 'kilometers-per-liter',
@@ -19,7 +20,8 @@ export const fuelEconomyUnits: Unit[] = [
     name: 'Kilometers per liter',
     abbreviations: ['km/L'],
     aliases: ['kilometers per litre'],
-    toBase: 1,
+    toBaseFormula: (value) => value, // Base unit
+    fromBaseFormula: (value) => value,
   },
   {
     id: 'miles-per-gallon-us',
@@ -27,7 +29,8 @@ export const fuelEconomyUnits: Unit[] = [
     name: 'Miles per gallon (US)',
     abbreviations: ['mpg', 'mpg (US)'],
     aliases: ['miles per gallon', 'mpg us'],
-    toBase: 0.425144, // 1 mpg = 0.425144 km/L
+    toBaseFormula: (value) => value * 0.425144, // 1 mpg (US) = 0.425144 km/L
+    fromBaseFormula: (value) => value / 0.425144,
   },
   {
     id: 'miles-per-gallon-imperial',
@@ -35,7 +38,8 @@ export const fuelEconomyUnits: Unit[] = [
     name: 'Miles per gallon (Imperial)',
     abbreviations: ['mpg (imp)', 'mpg (UK)'],
     aliases: ['imperial mpg', 'uk mpg'],
-    toBase: 0.354006, // 1 imp mpg = 0.354006 km/L
+    toBaseFormula: (value) => value * 0.354006, // 1 mpg (imp) = 0.354006 km/L
+    fromBaseFormula: (value) => value / 0.354006,
   },
   {
     id: 'miles-per-liter',
@@ -43,12 +47,20 @@ export const fuelEconomyUnits: Unit[] = [
     name: 'Miles per liter',
     abbreviations: ['mi/L'],
     aliases: ['miles per litre'],
-    toBase: 0.621371,
+    toBaseFormula: (value) => value * 1.609344, // 1 mi/L = 1.609344 km/L
+    fromBaseFormula: (value) => value / 1.609344,
+  },
+  {
+    id: 'liters-per-100km',
+    categoryId: 'fuel-economy',
+    name: 'Liters per 100 kilometers',
+    abbreviations: ['L/100km'],
+    aliases: ['liters per 100 km', 'litres per 100km'],
+    // L/100km is inverse: km/L = 100 / (L/100km)
+    toBaseFormula: (value) => 100 / value,
+    fromBaseFormula: (value) => 100 / value,
   },
 ];
-
-// Note: L/100km is an inverse unit - would need special handling
-// For simplicity, keeping only "per distance" units for now
 
 // ============================================================================
 // COOKING VOLUMES (Simplified - main volumes are in physical.ts)
