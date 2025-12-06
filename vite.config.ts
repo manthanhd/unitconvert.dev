@@ -4,6 +4,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [preact()],
+  base: '/unitconvert.dev/',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
