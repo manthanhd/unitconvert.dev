@@ -42,8 +42,8 @@ export function useSEO({ fromUnit, toUnit, fromValue, result }: SEOParams) {
       canonicalPath = `/${fromUnit.id}`;
     } else {
       // Default homepage
-      title = 'Unit Converter - Fast, Keyboard-First Conversions | Convert Units Instantly';
-      description = 'Free instant unit converter for developers and power users. Convert length, temperature, time zones, colors, data sizes, and 100+ units. Keyboard shortcuts, URL sharing, no signup required.';
+      title = 'Unit Converter - Fast, Keyboard-First | 100+ Units';
+      description = 'Free instant unit converter: length, temperature, colors, data sizes & 100+ units. Keyboard-first with URL sharing. No signup.';
     }
 
     // Update document title
