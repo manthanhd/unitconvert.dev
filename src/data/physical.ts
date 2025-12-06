@@ -282,6 +282,22 @@ export const areaUnits: Unit[] = [
     aliases: ['square inches'],
     toBase: 0.00064516,
   },
+  {
+    id: 'section',
+    categoryId: 'area',
+    name: 'Section',
+    abbreviations: ['section'],
+    aliases: ['sections', 'square mile section'],
+    toBase: 2589988.11, // 1 sq mi
+  },
+  {
+    id: 'township',
+    categoryId: 'area',
+    name: 'Township',
+    abbreviations: ['township'],
+    aliases: ['townships'],
+    toBase: 93239596, // 36 sections
+  },
 ];
 
 // ============================================================================
@@ -416,6 +432,86 @@ export const volumeUnits: Unit[] = [
     aliases: ['barrels', 'oil barrel', 'oil barrels'],
     toBase: 0.158987,
   },
+  {
+    id: 'cubic-millimeter',
+    categoryId: 'volume',
+    name: 'Cubic Millimeter',
+    abbreviations: ['mm³', 'mm3', 'cu mm'],
+    aliases: ['cubic millimeters', 'cubic millimetre'],
+    toBase: 1e-9,
+  },
+  {
+    id: 'hectoliter',
+    categoryId: 'volume',
+    name: 'Hectoliter',
+    abbreviations: ['hL', 'hl'],
+    aliases: ['hectolitre', 'hectoliters', 'hectolitres'],
+    toBase: 0.1,
+  },
+  {
+    id: 'bushel',
+    categoryId: 'volume',
+    name: 'Bushel',
+    abbreviations: ['bu'],
+    aliases: ['bushels'],
+    toBase: 0.0352391, // US bushel = 35.2391 L
+  },
+  {
+    id: 'peck',
+    categoryId: 'volume',
+    name: 'Peck',
+    abbreviations: ['pk'],
+    aliases: ['pecks'],
+    toBase: 0.00880977, // 1/4 bushel
+  },
+  {
+    id: 'gill',
+    categoryId: 'volume',
+    name: 'Gill',
+    abbreviations: ['gi'],
+    aliases: ['gills'],
+    toBase: 0.000118294, // US gill = 118.294 mL
+  },
+  {
+    id: 'drop',
+    categoryId: 'volume',
+    name: 'Drop',
+    abbreviations: ['drop', 'gtt'],
+    aliases: ['drops'],
+    toBase: 5e-8, // ~0.05 mL
+  },
+  {
+    id: 'microliter',
+    categoryId: 'volume',
+    name: 'Microliter',
+    abbreviations: ['μL', 'uL'],
+    aliases: ['microlitre', 'microliters', 'microlitres'],
+    toBase: 1e-9,
+  },
+  {
+    id: 'cubic-yard',
+    categoryId: 'volume',
+    name: 'Cubic Yard',
+    abbreviations: ['yd³', 'yd3', 'cu yd'],
+    aliases: ['cubic yards'],
+    toBase: 0.764555,
+  },
+  {
+    id: 'pint-imperial',
+    categoryId: 'volume',
+    name: 'Pint (Imperial)',
+    abbreviations: ['imp pt', 'uk pt'],
+    aliases: ['imperial pint', 'imperial pints'],
+    toBase: 0.000568261,
+  },
+  {
+    id: 'fluid-ounce-imperial',
+    categoryId: 'volume',
+    name: 'Fluid Ounce (Imperial)',
+    abbreviations: ['imp fl oz'],
+    aliases: ['imperial fluid ounce', 'imperial fluid ounces'],
+    toBase: 0.0000284131,
+  },
 ];
 
 // ============================================================================
@@ -533,6 +629,62 @@ export const massUnits: Unit[] = [
     abbreviations: ['gr'],
     aliases: ['grains'],
     toBase: 0.0000647989,
+  },
+  {
+    id: 'dram',
+    categoryId: 'mass',
+    name: 'Dram',
+    abbreviations: ['dr'],
+    aliases: ['drams', 'drachm'],
+    toBase: 0.00177185, // 1/16 oz = 1.77185 g
+  },
+  {
+    id: 'hundredweight-us',
+    categoryId: 'mass',
+    name: 'Hundredweight (US)',
+    abbreviations: ['cwt'],
+    aliases: ['short hundredweight', 'cental'],
+    toBase: 45.3592, // 100 lb
+  },
+  {
+    id: 'hundredweight-imperial',
+    categoryId: 'mass',
+    name: 'Hundredweight (Imperial)',
+    abbreviations: ['imp cwt'],
+    aliases: ['long hundredweight'],
+    toBase: 50.8023, // 112 lb
+  },
+  {
+    id: 'pennyweight',
+    categoryId: 'mass',
+    name: 'Pennyweight',
+    abbreviations: ['dwt'],
+    aliases: ['pennyweights'],
+    toBase: 0.00155517, // 1/20 troy oz
+  },
+  {
+    id: 'atomic-mass-unit',
+    categoryId: 'mass',
+    name: 'Atomic Mass Unit',
+    abbreviations: ['amu', 'u', 'Da'],
+    aliases: ['dalton', 'daltons', 'unified atomic mass unit'],
+    toBase: 1.66054e-27,
+  },
+  {
+    id: 'slug',
+    categoryId: 'mass',
+    name: 'Slug',
+    abbreviations: ['slug'],
+    aliases: ['slugs'],
+    toBase: 14.5939,
+  },
+  {
+    id: 'troy-pound',
+    categoryId: 'mass',
+    name: 'Troy Pound',
+    abbreviations: ['lb t'],
+    aliases: ['troy pounds'],
+    toBase: 0.373242, // 12 troy oz
   },
 ];
 

@@ -216,6 +216,14 @@ export const frequencyUnits: Unit[] = [
     aliases: ['beats per minute'],
     toBase: 0.0166667, // 1/60
   },
+  {
+    id: 'degree-per-second',
+    categoryId: 'frequency',
+    name: 'Degree per second',
+    abbreviations: ['°/s', 'deg/s'],
+    aliases: ['degrees per second'],
+    toBase: 0.00277778, // 1/360
+  },
 ];
 
 // ============================================================================
@@ -285,6 +293,22 @@ export const angleUnits: Unit[] = [
     abbreviations: ['mrad'],
     aliases: ['milliradians', 'mil'],
     toBase: 0.001,
+  },
+  {
+    id: 'quadrant',
+    categoryId: 'angle',
+    name: 'Quadrant',
+    abbreviations: ['quadrant'],
+    aliases: ['quadrants', 'right angle'],
+    toBase: 1.5708, // π/2 (90°)
+  },
+  {
+    id: 'sextant',
+    categoryId: 'angle',
+    name: 'Sextant',
+    abbreviations: ['sextant'],
+    aliases: ['sextants'],
+    toBase: 1.0472, // π/3 (60°)
   },
 ];
 

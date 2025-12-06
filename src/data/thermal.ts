@@ -186,6 +186,22 @@ export const pressureUnits: Unit[] = [
     aliases: ['pounds per square inch'],
     toBase: 6894.76,
   },
+  {
+    id: 'psf',
+    categoryId: 'pressure',
+    name: 'PSF',
+    abbreviations: ['psf', 'lb/ft²'],
+    aliases: ['pounds per square foot'],
+    toBase: 47.8803,
+  },
+  {
+    id: 'technical-atmosphere',
+    categoryId: 'pressure',
+    name: 'Technical Atmosphere',
+    abbreviations: ['at'],
+    aliases: ['technical atmospheres', 'kilogram-force per cm2', 'kgf/cm²'],
+    toBase: 98066.5, // 1 kgf/cm² = 98066.5 Pa
+  },
 ];
 
 // ============================================================================
@@ -296,6 +312,54 @@ export const energyUnits: Unit[] = [
     aliases: ['therms'],
     toBase: 1.055e8,
   },
+  {
+    id: 'gigajoule',
+    categoryId: 'energy',
+    name: 'Gigajoule',
+    abbreviations: ['GJ'],
+    aliases: ['gigajoules'],
+    toBase: 1e9,
+  },
+  {
+    id: 'megawatt-hour',
+    categoryId: 'energy',
+    name: 'Megawatt-hour',
+    abbreviations: ['MWh'],
+    aliases: ['megawatt hours'],
+    toBase: 3.6e9,
+  },
+  {
+    id: 'kiloelectronvolt',
+    categoryId: 'energy',
+    name: 'Kiloelectronvolt',
+    abbreviations: ['keV'],
+    aliases: ['kiloelectronvolts', 'kilo electron volt'],
+    toBase: 1.60218e-16,
+  },
+  {
+    id: 'megaelectronvolt',
+    categoryId: 'energy',
+    name: 'Megaelectronvolt',
+    abbreviations: ['MeV'],
+    aliases: ['megaelectronvolts', 'mega electron volt'],
+    toBase: 1.60218e-13,
+  },
+  {
+    id: 'ton-tnt',
+    categoryId: 'energy',
+    name: 'Ton of TNT',
+    abbreviations: ['tTNT'],
+    aliases: ['tons of tnt', 'ton tnt'],
+    toBase: 4.184e9, // 4.184 GJ
+  },
+  {
+    id: 'quad',
+    categoryId: 'energy',
+    name: 'Quad',
+    abbreviations: ['quad'],
+    aliases: ['quads', 'quadrillion btu'],
+    toBase: 1.055e18, // 10^15 BTU
+  },
 ];
 
 // ============================================================================
@@ -381,6 +445,38 @@ export const powerUnits: Unit[] = [
     abbreviations: ['TR', 'RT'],
     aliases: ['tons of refrigeration', 'refrigeration ton'],
     toBase: 3516.85,
+  },
+  {
+    id: 'horsepower-electrical',
+    categoryId: 'power',
+    name: 'Horsepower (electrical)',
+    abbreviations: ['hp(E)'],
+    aliases: ['electrical horsepower'],
+    toBase: 746, // Exactly 746 W
+  },
+  {
+    id: 'foot-pound-per-second',
+    categoryId: 'power',
+    name: 'Foot-pound per second',
+    abbreviations: ['ft⋅lb/s', 'ft-lb/s'],
+    aliases: ['foot pounds per second'],
+    toBase: 1.35582,
+  },
+  {
+    id: 'erg-per-second',
+    categoryId: 'power',
+    name: 'Erg per second',
+    abbreviations: ['erg/s'],
+    aliases: ['ergs per second'],
+    toBase: 1e-7,
+  },
+  {
+    id: 'calorie-per-second',
+    categoryId: 'power',
+    name: 'Calorie per second',
+    abbreviations: ['cal/s'],
+    aliases: ['calories per second'],
+    toBase: 4.184,
   },
 ];
 

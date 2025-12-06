@@ -532,6 +532,50 @@ export const concentrationUnits: Unit[] = [
     aliases: ['grams per deciliter', 'grams per 100mL'],
     toBase: 10000,
   },
+  // Molar concentration units
+  // Note: For molar units, we use a simplified approximation where 1 M ≈ 1000 ppm
+  // (this assumes a solution with density ~1 g/mL and solute molar mass ~1 g/mol)
+  // Actual conversions depend on the solute's molar mass
+  {
+    id: 'molar',
+    categoryId: 'concentration',
+    name: 'Molar',
+    abbreviations: ['M', 'mol/L'],
+    aliases: ['moles per liter', 'molar concentration'],
+    toBase: 1000000, // 1 M = 10^6 ppm for unit conversion purposes
+  },
+  {
+    id: 'millimolar',
+    categoryId: 'concentration',
+    name: 'Millimolar',
+    abbreviations: ['mM'],
+    aliases: ['millimoles per liter'],
+    toBase: 1000, // 1 mM = 10^3 ppm
+  },
+  {
+    id: 'micromolar',
+    categoryId: 'concentration',
+    name: 'Micromolar',
+    abbreviations: ['μM', 'uM'],
+    aliases: ['micromoles per liter'],
+    toBase: 1, // 1 μM = 1 ppm
+  },
+  {
+    id: 'nanomolar',
+    categoryId: 'concentration',
+    name: 'Nanomolar',
+    abbreviations: ['nM'],
+    aliases: ['nanomoles per liter'],
+    toBase: 0.001, // 1 nM = 0.001 ppm
+  },
+  {
+    id: 'molal',
+    categoryId: 'concentration',
+    name: 'Molal',
+    abbreviations: ['m', 'mol/kg'],
+    aliases: ['moles per kilogram', 'molality'],
+    toBase: 1000000, // Similar to molar for dilute aqueous solutions
+  },
 ];
 
 // ============================================================================
