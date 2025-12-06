@@ -1,0 +1,68 @@
+{
+  "name": "Unit Converter - Fast, Keyboard-First Conversions",
+  "short_name": "Converter",
+  "description": "Free instant unit converter for developers and power users. Convert length, temperature, time zones, colors, data sizes, and 100+ units with keyboard shortcuts.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0969da",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["utilities", "productivity", "developer tools"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Celsius to Fahrenheit",
+      "short_name": "C to F",
+      "description": "Convert temperature from Celsius to Fahrenheit",
+      "url": "/celsius/fahrenheit",
+      "icons": [{ "src": "/favicon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Kilometers to Miles",
+      "short_name": "km to mi",
+      "description": "Convert distance from kilometers to miles",
+      "url": "/kilometer/mile",
+      "icons": [{ "src": "/favicon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Hex to RGB",
+      "short_name": "Hex to RGB",
+      "description": "Convert hex color codes to RGB",
+      "url": "/hex/rgb",
+      "icons": [{ "src": "/favicon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Kilograms to Pounds",
+      "short_name": "kg to lb",
+      "description": "Convert weight from kilograms to pounds",
+      "url": "/kilogram/pound",
+      "icons": [{ "src": "/favicon-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

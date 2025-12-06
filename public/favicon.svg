@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0969da;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#58a6ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="url(#grad)"/>
+  <!-- Conversion arrows symbol -->
+  <g fill="white" stroke="white" stroke-width="2">
+    <!-- Left arrow pointing right -->
+    <path d="M25 35 L45 35 L45 28 L58 40 L45 52 L45 45 L25 45 Z" fill="white"/>
+    <!-- Right arrow pointing left -->
+    <path d="M75 65 L55 65 L55 72 L42 60 L55 48 L55 55 L75 55 Z" fill="white"/>
+  </g>
+</svg>

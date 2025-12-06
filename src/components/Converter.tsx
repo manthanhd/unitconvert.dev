@@ -11,6 +11,7 @@ import { useConversion } from '../hooks/useConversion';
 import { useFocusManager } from '../hooks/useFocusManager';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { useRecentConversions } from '../hooks/useRecentConversions';
+import { useSEO } from '../hooks/useSEO';
 import { copyToClipboard } from '../utils/clipboard';
 import { debounce } from '../utils/format';
 import { convert } from '../converters';
@@ -27,6 +28,14 @@ export function Converter() {
 
   // Calculate result
   const result = useConversion(state.fromUnit, state.toUnit, state.fromValue);
+
+  // Update SEO meta tags based on current state
+  useSEO({
+    fromUnit: state.fromUnit,
+    toUnit: state.toUnit,
+    fromValue: state.fromValue,
+    result,
+  });
 
   // Debounced save to recents (500ms delay)
   const debouncedAddRecent = useMemo(

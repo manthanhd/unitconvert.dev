@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Unit Converter",
+  "name_for_model": "unit_converter",
+  "description_for_human": "Fast, keyboard-first unit converter. Convert length, temperature, colors, data sizes, and 100+ units instantly.",
+  "description_for_model": "Unit Converter is a web application for converting between units of measurement. It supports 100+ units across categories: length (meter, foot, mile, km), temperature (celsius, fahrenheit, kelvin), mass (kg, pound, ounce), volume (liter, gallon), data storage (KB, MB, GB), colors (hex, rgb, hsl), number bases (binary, decimal, hex), typography (px, rem, em), and more. Users can share conversions via URL format: unitconvert.dev/{from}/{to}/{value}. Examples: /celsius/fahrenheit/25 converts 25C to F, /hex/rgb/FF5733 converts hex to RGB, /kilometer/mile/10 converts 10km to miles.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "none",
+    "url": "https://unitconvert.dev/",
+    "has_user_authentication": false
+  },
+  "logo_url": "https://unitconvert.dev/favicon-512x512.png",
+  "contact_email": "support@unitconvert.dev",
+  "legal_info_url": "https://unitconvert.dev/privacy"
+}
