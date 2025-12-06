@@ -590,3 +590,222 @@
   color: var(--error);
   background: var(--bg-highlight);
 }
+
+/* Category Selector */
+.category-selector {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.category-selector__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.category-selector__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.category-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 80px;
+}
+
+.category-card:hover {
+  background: var(--bg-highlight);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.category-card:active {
+  transform: translateY(0);
+}
+
+.category-card__name {
+  text-align: center;
+}
+
+/* Category Page */
+.category-page {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+}
+
+.category-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.category-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.category-page__back:hover {
+  color: var(--text-primary);
+  background: var(--bg-highlight);
+  border-color: var(--accent);
+}
+
+.category-page__title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.category-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.category-page__section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category-page__section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.category-page__popular-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.popular-conversion-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  font-family: inherit;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.popular-conversion-card:hover {
+  background: var(--bg-highlight);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.popular-conversion-card:active {
+  transform: translateY(0);
+}
+
+.popular-conversion-card__label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.popular-conversion-card__units {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.category-page__units-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.unit-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.unit-card__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.unit-card__abbr {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.category-page__error {
+  font-size: 16px;
+  color: var(--error);
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .category-selector__grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .category-page__title {
+    font-size: 24px;
+  }
+
+  .category-page__popular-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-page__units-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

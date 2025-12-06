@@ -6,6 +6,7 @@ import { KeyboardHints } from './KeyboardHints';
 import { ShareModal } from './ShareModal';
 import { Toast } from './Toast';
 import { RecentConversions } from './RecentConversions';
+import { CategorySelector } from './CategorySelector';
 import { useUrlState } from '../hooks/useUrlState';
 import { useConversion } from '../hooks/useConversion';
 import { useFocusManager } from '../hooks/useFocusManager';
@@ -200,14 +201,35 @@ export function Converter() {
     [removeRecent]
   );
 
+  // Handle category selection from home page
+  const handleCategorySelect = useCallback(
+    (categoryId: string) => {
+      updateState({
+        categoryId,
+        isCategoryPage: true,
+        fromUnit: null,
+        toUnit: null,
+        fromValue: ''
+      });
+    },
+    [updateState]
+  );
+
   // Filter to unit dropdown to same category as from unit
   const toUnitFilterCategory = state.fromUnit?.categoryId;
 
   // Get conversion type from the fromUnit's category
   const conversionType = state.fromUnit ? getCategory(state.fromUnit.categoryId)?.conversionType ?? 'linear' : 'linear';
 
+  // Show category selector when no units are selected (home page)
+  const showCategorySelector = !state.fromUnit && !state.toUnit && recents.length === 0;
+
   return (
     <div id="converter" className="converter">
+      {showCategorySelector && (
+        <CategorySelector onCategorySelect={handleCategorySelect} />
+      )}
+
       <div className="converter__units">
         <UnitInput
           value={state.fromUnit}

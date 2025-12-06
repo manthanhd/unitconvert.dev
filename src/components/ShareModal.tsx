@@ -9,7 +9,7 @@ interface ShareModalProps {
 
 export function ShareModal({ isOpen, onClose }: ShareModalProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const currentUrl = window.location.href;
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 
   // Auto-select URL when modal opens
   useEffect(() => {
@@ -20,7 +20,7 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
 
   // Handle Escape key to close modal
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || typeof window === 'undefined') return;
 
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
