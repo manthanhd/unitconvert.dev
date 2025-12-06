@@ -1,10 +1,16 @@
-import { hydrate } from 'preact';
+import { hydrate, render } from 'preact';
 import { App } from './App';
 import './styles/main.css';
 
-// Hydrate in the browser
+// Render or hydrate in the browser
 if (typeof window !== 'undefined') {
-  hydrate(<App />, document.getElementById('app')!);
+  const app = document.getElementById('app')!;
+  // Use hydrate in production (when HTML is pre-rendered), render in dev
+  if (import.meta.env.PROD && app.children.length > 0) {
+    hydrate(<App />, app);
+  } else {
+    render(<App />, app);
+  }
 
   // Register service worker for offline support
   if ('serviceWorker' in navigator && import.meta.env.PROD) {
