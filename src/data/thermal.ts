@@ -160,7 +160,7 @@ export const pressureUnits: Unit[] = [
     name: 'Torr',
     abbreviations: ['Torr'],
     aliases: ['torrs'],
-    toBase: 133.322,
+    toBase: 101325 / 760, // exact: 133.32236842105263
   },
   {
     id: 'mmhg',
@@ -168,7 +168,7 @@ export const pressureUnits: Unit[] = [
     name: 'mmHg',
     abbreviations: ['mmHg'],
     aliases: ['millimeters of mercury', 'mm of mercury'],
-    toBase: 133.322,
+    toBase: 133.322387415, // conventional value at 0°C
   },
   {
     id: 'inhg',
@@ -176,7 +176,7 @@ export const pressureUnits: Unit[] = [
     name: 'inHg',
     abbreviations: ['inHg'],
     aliases: ['inches of mercury', 'in of mercury'],
-    toBase: 3386.39,
+    toBase: 3386.389, // conventional value at 0°C
   },
   {
     id: 'psi',
@@ -184,7 +184,7 @@ export const pressureUnits: Unit[] = [
     name: 'PSI',
     abbreviations: ['psi', 'lb/in²'],
     aliases: ['pounds per square inch'],
-    toBase: 6894.76,
+    toBase: 6894.757293168361, // exact: lbf/in² = 0.45359237 × 9.80665 / 0.0254²
   },
   {
     id: 'psf',
@@ -192,7 +192,7 @@ export const pressureUnits: Unit[] = [
     name: 'PSF',
     abbreviations: ['psf', 'lb/ft²'],
     aliases: ['pounds per square foot'],
-    toBase: 47.8803,
+    toBase: 47.88025898033584, // exact: lbf/ft²
   },
   {
     id: 'technical-atmosphere',
@@ -278,7 +278,7 @@ export const energyUnits: Unit[] = [
     name: 'Electronvolt',
     abbreviations: ['eV'],
     aliases: ['electronvolts', 'electron volt'],
-    toBase: 1.60218e-19,
+    toBase: 1.602176634e-19, // exact by 2019 SI redefinition
   },
   {
     id: 'btu',
@@ -286,7 +286,7 @@ export const energyUnits: Unit[] = [
     name: 'BTU',
     abbreviations: ['BTU', 'Btu'],
     aliases: ['british thermal unit', 'british thermal units'],
-    toBase: 1055.06,
+    toBase: 1055.05585262, // ISO BTU
   },
   {
     id: 'foot-pound',
@@ -294,7 +294,7 @@ export const energyUnits: Unit[] = [
     name: 'Foot-pound',
     abbreviations: ['ft⋅lb', 'ft-lb'],
     aliases: ['foot pounds', 'foot-pounds'],
-    toBase: 1.35582,
+    toBase: 1.3558179483314004, // exact: ft × lbf
   },
   {
     id: 'erg',
@@ -334,7 +334,7 @@ export const energyUnits: Unit[] = [
     name: 'Kiloelectronvolt',
     abbreviations: ['keV'],
     aliases: ['kiloelectronvolts', 'kilo electron volt'],
-    toBase: 1.60218e-16,
+    toBase: 1.602176634e-16, // exact: 1000 × eV
   },
   {
     id: 'megaelectronvolt',
@@ -342,7 +342,7 @@ export const energyUnits: Unit[] = [
     name: 'Megaelectronvolt',
     abbreviations: ['MeV'],
     aliases: ['megaelectronvolts', 'mega electron volt'],
-    toBase: 1.60218e-13,
+    toBase: 1.602176634e-13, // exact: 10^6 × eV
   },
   {
     id: 'ton-tnt',
@@ -350,7 +350,7 @@ export const energyUnits: Unit[] = [
     name: 'Ton of TNT',
     abbreviations: ['tTNT'],
     aliases: ['tons of tnt', 'ton tnt'],
-    toBase: 4.184e9, // 4.184 GJ
+    toBase: 4.184e9, // exact: 4.184 GJ by definition
   },
   {
     id: 'quad',
@@ -358,7 +358,7 @@ export const energyUnits: Unit[] = [
     name: 'Quad',
     abbreviations: ['quad'],
     aliases: ['quads', 'quadrillion btu'],
-    toBase: 1.055e18, // 10^15 BTU
+    toBase: 1.05505585262e18, // exact: 10^15 × ISO BTU
   },
 ];
 
@@ -420,7 +420,7 @@ export const powerUnits: Unit[] = [
     name: 'Horsepower (mechanical)',
     abbreviations: ['hp'],
     aliases: ['horsepower', 'mechanical horsepower'],
-    toBase: 745.7,
+    toBase: 745.69987158227022, // exact: 550 ft⋅lbf/s
   },
   {
     id: 'horsepower-metric',
@@ -428,7 +428,7 @@ export const powerUnits: Unit[] = [
     name: 'Horsepower (metric)',
     abbreviations: ['PS', 'cv'],
     aliases: ['metric horsepower', 'pferdestärke'],
-    toBase: 735.499,
+    toBase: 735.49875, // exact: 75 kgf⋅m/s
   },
   {
     id: 'btu-per-hour',
@@ -436,7 +436,7 @@ export const powerUnits: Unit[] = [
     name: 'BTU per hour',
     abbreviations: ['BTU/h', 'BTU/hr'],
     aliases: ['btu per hour'],
-    toBase: 0.293071,
+    toBase: 1055.05585262 / 3600, // exact: ISO BTU/h = 0.29307107017222...
   },
   {
     id: 'ton-refrigeration',
@@ -444,7 +444,7 @@ export const powerUnits: Unit[] = [
     name: 'Ton of Refrigeration',
     abbreviations: ['TR', 'RT'],
     aliases: ['tons of refrigeration', 'refrigeration ton'],
-    toBase: 3516.85,
+    toBase: 3516.8528420667, // exact: 12000 BTU/h
   },
   {
     id: 'horsepower-electrical',
@@ -452,7 +452,7 @@ export const powerUnits: Unit[] = [
     name: 'Horsepower (electrical)',
     abbreviations: ['hp(E)'],
     aliases: ['electrical horsepower'],
-    toBase: 746, // Exactly 746 W
+    toBase: 746, // exactly 746 W by definition
   },
   {
     id: 'foot-pound-per-second',
@@ -460,7 +460,7 @@ export const powerUnits: Unit[] = [
     name: 'Foot-pound per second',
     abbreviations: ['ft⋅lb/s', 'ft-lb/s'],
     aliases: ['foot pounds per second'],
-    toBase: 1.35582,
+    toBase: 1.3558179483314004, // exact: ft × lbf/s
   },
   {
     id: 'erg-per-second',

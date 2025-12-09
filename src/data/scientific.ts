@@ -532,17 +532,19 @@ export const concentrationUnits: Unit[] = [
     aliases: ['grams per deciliter', 'grams per 100mL'],
     toBase: 10000,
   },
-  // Molar concentration units
-  // Note: For molar units, we use a simplified approximation where 1 M ≈ 1000 ppm
-  // (this assumes a solution with density ~1 g/mL and solute molar mass ~1 g/mol)
-  // Actual conversions depend on the solute's molar mass
+  // WARNING: Molar concentration units below use an APPROXIMATION.
+  // Converting between molar (mol/L) and mass-based concentrations (ppm, mg/L)
+  // requires knowing the molecular weight of the specific solute.
+  // These conversions assume MW = 1 g/mol (water-like), which is rarely accurate.
+  // For example: 1 M glucose (MW=180) = 180,000 mg/L, but 1 M NaCl (MW=58.44) = 58,440 mg/L
+  // Use these conversions only for rough estimates or within the molar family itself.
   {
     id: 'molar',
     categoryId: 'concentration',
     name: 'Molar',
     abbreviations: ['M', 'mol/L'],
     aliases: ['moles per liter', 'molar concentration'],
-    toBase: 1000000, // 1 M = 10^6 ppm for unit conversion purposes
+    toBase: 1000000, // Approximate: assumes MW ≈ 1 g/mol
   },
   {
     id: 'millimolar',
@@ -550,7 +552,7 @@ export const concentrationUnits: Unit[] = [
     name: 'Millimolar',
     abbreviations: ['mM'],
     aliases: ['millimoles per liter'],
-    toBase: 1000, // 1 mM = 10^3 ppm
+    toBase: 1000,
   },
   {
     id: 'micromolar',
@@ -558,7 +560,7 @@ export const concentrationUnits: Unit[] = [
     name: 'Micromolar',
     abbreviations: ['μM', 'uM'],
     aliases: ['micromoles per liter'],
-    toBase: 1, // 1 μM = 1 ppm
+    toBase: 1,
   },
   {
     id: 'nanomolar',
@@ -566,7 +568,7 @@ export const concentrationUnits: Unit[] = [
     name: 'Nanomolar',
     abbreviations: ['nM'],
     aliases: ['nanomoles per liter'],
-    toBase: 0.001, // 1 nM = 0.001 ppm
+    toBase: 0.001,
   },
   {
     id: 'molal',
@@ -574,7 +576,7 @@ export const concentrationUnits: Unit[] = [
     name: 'Molal',
     abbreviations: ['m', 'mol/kg'],
     aliases: ['moles per kilogram', 'molality'],
-    toBase: 1000000, // Similar to molar for dilute aqueous solutions
+    toBase: 1000000, // Approximate: similar to molar for dilute aqueous solutions
   },
 ];
 

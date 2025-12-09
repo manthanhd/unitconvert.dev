@@ -122,7 +122,7 @@ export const lengthUnits: Unit[] = [
     name: 'Light Year',
     abbreviations: ['ly'],
     aliases: ['light years', 'lightyear', 'lightyears'],
-    toBase: 9.461e15,
+    toBase: 9.4607304725808e15, // IAU definition (exact)
   },
   {
     id: 'astronomical-unit',
@@ -130,7 +130,7 @@ export const lengthUnits: Unit[] = [
     name: 'Astronomical Unit',
     abbreviations: ['au', 'AU'],
     aliases: ['astronomical units'],
-    toBase: 1.496e11,
+    toBase: 149597870700, // IAU 2012 definition (exact)
   },
   {
     id: 'parsec',
@@ -138,7 +138,7 @@ export const lengthUnits: Unit[] = [
     name: 'Parsec',
     abbreviations: ['pc'],
     aliases: ['parsecs'],
-    toBase: 3.086e16,
+    toBase: 3.0856775814913673e16, // derived from AU
   },
   {
     id: 'angstrom',
@@ -248,7 +248,7 @@ export const areaUnits: Unit[] = [
     name: 'Square Mile',
     abbreviations: ['mi²', 'mi2', 'sq mi'],
     aliases: ['square miles'],
-    toBase: 2589988.11,
+    toBase: 2589988.110336, // exact: 1609.344²
   },
   {
     id: 'acre',
@@ -288,7 +288,7 @@ export const areaUnits: Unit[] = [
     name: 'Section',
     abbreviations: ['section'],
     aliases: ['sections', 'square mile section'],
-    toBase: 2589988.11, // 1 sq mi
+    toBase: 2589988.110336, // exact: 1 sq mi
   },
   {
     id: 'township',
@@ -296,7 +296,7 @@ export const areaUnits: Unit[] = [
     name: 'Township',
     abbreviations: ['township'],
     aliases: ['townships'],
-    toBase: 93239596, // 36 sections
+    toBase: 93239571.972096, // exact: 36 sections
   },
 ];
 
@@ -350,7 +350,7 @@ export const volumeUnits: Unit[] = [
     name: 'Gallon (US)',
     abbreviations: ['gal', 'us gal'],
     aliases: ['gallons', 'us gallon', 'us gallons'],
-    toBase: 0.00378541,
+    toBase: 0.003785411784, // exact: 231 in³
   },
   {
     id: 'gallon-imperial',
@@ -366,7 +366,7 @@ export const volumeUnits: Unit[] = [
     name: 'Quart (US)',
     abbreviations: ['qt'],
     aliases: ['quarts', 'us quart'],
-    toBase: 0.000946353,
+    toBase: 0.000946352946, // exact: gal/4
   },
   {
     id: 'pint-us',
@@ -374,7 +374,7 @@ export const volumeUnits: Unit[] = [
     name: 'Pint (US)',
     abbreviations: ['pt'],
     aliases: ['pints', 'us pint'],
-    toBase: 0.000473176,
+    toBase: 0.000473176473, // exact: gal/8
   },
   {
     id: 'cup-us',
@@ -382,7 +382,7 @@ export const volumeUnits: Unit[] = [
     name: 'Cup (US)',
     abbreviations: ['cup', 'c'],
     aliases: ['cups', 'us cup'],
-    toBase: 0.000236588,
+    toBase: 0.0002365882365, // exact: gal/16
   },
   {
     id: 'fluid-ounce-us',
@@ -390,7 +390,7 @@ export const volumeUnits: Unit[] = [
     name: 'Fluid Ounce (US)',
     abbreviations: ['fl oz', 'floz'],
     aliases: ['fluid ounces', 'fl ounce'],
-    toBase: 0.0000295735,
+    toBase: 0.0000295735295625, // exact: gal/128
   },
   {
     id: 'tablespoon',
@@ -398,7 +398,7 @@ export const volumeUnits: Unit[] = [
     name: 'Tablespoon',
     abbreviations: ['tbsp', 'Tbsp', 'tbs'],
     aliases: ['tablespoons'],
-    toBase: 0.0000147868,
+    toBase: 0.00001478676478125, // exact: fl oz/2
   },
   {
     id: 'teaspoon',
@@ -406,7 +406,7 @@ export const volumeUnits: Unit[] = [
     name: 'Teaspoon',
     abbreviations: ['tsp'],
     aliases: ['teaspoons'],
-    toBase: 0.00000492892,
+    toBase: 0.00000492892159375, // exact: fl oz/6
   },
   {
     id: 'cubic-foot',
@@ -414,7 +414,7 @@ export const volumeUnits: Unit[] = [
     name: 'Cubic Foot',
     abbreviations: ['ft³', 'ft3', 'cu ft'],
     aliases: ['cubic feet'],
-    toBase: 0.0283168,
+    toBase: 0.028316846592, // exact: 0.3048³
   },
   {
     id: 'cubic-inch',
@@ -422,7 +422,7 @@ export const volumeUnits: Unit[] = [
     name: 'Cubic Inch',
     abbreviations: ['in³', 'in3', 'cu in'],
     aliases: ['cubic inches'],
-    toBase: 0.0000163871,
+    toBase: 0.000016387064, // exact: 0.0254³
   },
   {
     id: 'barrel-oil',
@@ -430,7 +430,7 @@ export const volumeUnits: Unit[] = [
     name: 'Barrel (Oil)',
     abbreviations: ['bbl'],
     aliases: ['barrels', 'oil barrel', 'oil barrels'],
-    toBase: 0.158987,
+    toBase: 0.158987294928, // exact: 42 US gal
   },
   {
     id: 'cubic-millimeter',
@@ -494,7 +494,7 @@ export const volumeUnits: Unit[] = [
     name: 'Cubic Yard',
     abbreviations: ['yd³', 'yd3', 'cu yd'],
     aliases: ['cubic yards'],
-    toBase: 0.764555,
+    toBase: 0.764554857984, // exact: 0.9144³
   },
   {
     id: 'pint-imperial',
@@ -572,7 +572,7 @@ export const massUnits: Unit[] = [
     name: 'Pound',
     abbreviations: ['lb', 'lbs'],
     aliases: ['pounds'],
-    toBase: 0.453592,
+    toBase: 0.45359237, // exact by definition
   },
   {
     id: 'ounce',
@@ -580,7 +580,7 @@ export const massUnits: Unit[] = [
     name: 'Ounce',
     abbreviations: ['oz'],
     aliases: ['ounces'],
-    toBase: 0.0283495,
+    toBase: 0.028349523125, // exact: lb/16
   },
   {
     id: 'stone',
@@ -588,7 +588,7 @@ export const massUnits: Unit[] = [
     name: 'Stone',
     abbreviations: ['st'],
     aliases: ['stones'],
-    toBase: 6.35029,
+    toBase: 6.35029318, // exact: 14 lb
   },
   {
     id: 'short-ton',
@@ -596,7 +596,7 @@ export const massUnits: Unit[] = [
     name: 'Short Ton (US)',
     abbreviations: ['ton', 'us ton'],
     aliases: ['short tons', 'us tons'],
-    toBase: 907.185,
+    toBase: 907.18474, // exact: 2000 lb
   },
   {
     id: 'long-ton',
@@ -604,7 +604,7 @@ export const massUnits: Unit[] = [
     name: 'Long Ton (Imperial)',
     abbreviations: ['long ton', 'uk ton'],
     aliases: ['long tons', 'imperial tons'],
-    toBase: 1016.05,
+    toBase: 1016.0469088, // exact: 2240 lb
   },
   {
     id: 'carat',
@@ -620,7 +620,7 @@ export const massUnits: Unit[] = [
     name: 'Troy Ounce',
     abbreviations: ['oz t', 'troy oz'],
     aliases: ['troy ounces'],
-    toBase: 0.0311035,
+    toBase: 0.0311034768, // exact
   },
   {
     id: 'grain',
@@ -628,7 +628,7 @@ export const massUnits: Unit[] = [
     name: 'Grain',
     abbreviations: ['gr'],
     aliases: ['grains'],
-    toBase: 0.0000647989,
+    toBase: 0.00006479891, // exact
   },
   {
     id: 'dram',
@@ -636,7 +636,7 @@ export const massUnits: Unit[] = [
     name: 'Dram',
     abbreviations: ['dr'],
     aliases: ['drams', 'drachm'],
-    toBase: 0.00177185, // 1/16 oz = 1.77185 g
+    toBase: 0.0017718451953125, // exact: lb/256
   },
   {
     id: 'hundredweight-us',
@@ -644,7 +644,7 @@ export const massUnits: Unit[] = [
     name: 'Hundredweight (US)',
     abbreviations: ['cwt'],
     aliases: ['short hundredweight', 'cental'],
-    toBase: 45.3592, // 100 lb
+    toBase: 45.359237, // exact: 100 lb
   },
   {
     id: 'hundredweight-imperial',
@@ -652,7 +652,7 @@ export const massUnits: Unit[] = [
     name: 'Hundredweight (Imperial)',
     abbreviations: ['imp cwt'],
     aliases: ['long hundredweight'],
-    toBase: 50.8023, // 112 lb
+    toBase: 50.80234544, // exact: 112 lb
   },
   {
     id: 'pennyweight',
@@ -660,7 +660,7 @@ export const massUnits: Unit[] = [
     name: 'Pennyweight',
     abbreviations: ['dwt'],
     aliases: ['pennyweights'],
-    toBase: 0.00155517, // 1/20 troy oz
+    toBase: 0.00155517384, // exact: troy oz/20
   },
   {
     id: 'atomic-mass-unit',
@@ -668,7 +668,7 @@ export const massUnits: Unit[] = [
     name: 'Atomic Mass Unit',
     abbreviations: ['amu', 'u', 'Da'],
     aliases: ['dalton', 'daltons', 'unified atomic mass unit'],
-    toBase: 1.66054e-27,
+    toBase: 1.66053906660e-27, // CODATA 2018
   },
   {
     id: 'slug',
@@ -676,7 +676,7 @@ export const massUnits: Unit[] = [
     name: 'Slug',
     abbreviations: ['slug'],
     aliases: ['slugs'],
-    toBase: 14.5939,
+    toBase: 14.593902937, // exact: lbf·s²/ft
   },
   {
     id: 'troy-pound',
@@ -684,7 +684,7 @@ export const massUnits: Unit[] = [
     name: 'Troy Pound',
     abbreviations: ['lb t'],
     aliases: ['troy pounds'],
-    toBase: 0.373242, // 12 troy oz
+    toBase: 0.3732417216, // exact: 12 troy oz
   },
 ];
 

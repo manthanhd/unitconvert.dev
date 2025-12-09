@@ -198,7 +198,7 @@ export const frequencyUnits: Unit[] = [
     name: 'RPM',
     abbreviations: ['rpm', 'r/min'],
     aliases: ['revolutions per minute'],
-    toBase: 0.0166667, // 1/60
+    toBase: 1 / 60, // exact
   },
   {
     id: 'radian-per-second',
@@ -206,7 +206,7 @@ export const frequencyUnits: Unit[] = [
     name: 'Radian per second',
     abbreviations: ['rad/s'],
     aliases: ['radians per second'],
-    toBase: 0.159155, // 1/(2π)
+    toBase: 1 / (2 * Math.PI), // 0.15915494309189535
   },
   {
     id: 'bpm',
@@ -214,7 +214,7 @@ export const frequencyUnits: Unit[] = [
     name: 'BPM',
     abbreviations: ['bpm'],
     aliases: ['beats per minute'],
-    toBase: 0.0166667, // 1/60
+    toBase: 1 / 60, // exact
   },
   {
     id: 'degree-per-second',
@@ -222,7 +222,7 @@ export const frequencyUnits: Unit[] = [
     name: 'Degree per second',
     abbreviations: ['°/s', 'deg/s'],
     aliases: ['degrees per second'],
-    toBase: 0.00277778, // 1/360
+    toBase: 1 / 360, // exact
   },
 ];
 
@@ -237,6 +237,9 @@ export const angleCategory: Category = {
 };
 
 // Base unit: radian
+// Using Math.PI for maximum precision in JavaScript (15-17 significant digits)
+const PI = Math.PI; // 3.141592653589793
+
 export const angleUnits: Unit[] = [
   {
     id: 'radian',
@@ -252,7 +255,7 @@ export const angleUnits: Unit[] = [
     name: 'Degree',
     abbreviations: ['°', 'deg'],
     aliases: ['degrees'],
-    toBase: 0.0174533, // π/180
+    toBase: PI / 180, // 0.017453292519943295
   },
   {
     id: 'gradian',
@@ -260,7 +263,7 @@ export const angleUnits: Unit[] = [
     name: 'Gradian',
     abbreviations: ['grad', 'gon'],
     aliases: ['gradians', 'gon', 'grade'],
-    toBase: 0.015708, // π/200
+    toBase: PI / 200, // 0.015707963267948967
   },
   {
     id: 'arcminute',
@@ -268,7 +271,7 @@ export const angleUnits: Unit[] = [
     name: 'Arcminute',
     abbreviations: ["'", 'arcmin'],
     aliases: ['arcminutes', 'minute of arc'],
-    toBase: 0.000290888, // π/10800
+    toBase: PI / 10800, // 0.0002908882086657216
   },
   {
     id: 'arcsecond',
@@ -276,7 +279,7 @@ export const angleUnits: Unit[] = [
     name: 'Arcsecond',
     abbreviations: ['"', 'arcsec'],
     aliases: ['arcseconds', 'second of arc'],
-    toBase: 0.00000484814, // π/648000
+    toBase: PI / 648000, // 0.000004848136811095360
   },
   {
     id: 'turn',
@@ -284,7 +287,7 @@ export const angleUnits: Unit[] = [
     name: 'Turn',
     abbreviations: ['turn', 'rev'],
     aliases: ['turns', 'revolution', 'revolutions', 'cycle'],
-    toBase: 6.28319, // 2π
+    toBase: 2 * PI, // 6.283185307179586
   },
   {
     id: 'milliradian',
@@ -300,7 +303,7 @@ export const angleUnits: Unit[] = [
     name: 'Quadrant',
     abbreviations: ['quadrant'],
     aliases: ['quadrants', 'right angle'],
-    toBase: 1.5708, // π/2 (90°)
+    toBase: PI / 2, // 1.5707963267948966
   },
   {
     id: 'sextant',
@@ -308,7 +311,7 @@ export const angleUnits: Unit[] = [
     name: 'Sextant',
     abbreviations: ['sextant'],
     aliases: ['sextants'],
-    toBase: 1.0472, // π/3 (60°)
+    toBase: PI / 3, // 1.0471975511965976
   },
 ];
 
