@@ -8,17 +8,25 @@
     "dev": "vite",
     "build": "tsc && vite build && cp dist/index.html dist/404.html",
     "preview": "vite preview",
-    "generate-icons": "node scripts/generate-icons.js"
+    "generate-icons": "node scripts/generate-icons.js",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "preact": "^10.19.3"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.8.2",
+    "@testing-library/preact": "^3.2.4",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitest/coverage-v8": "^2.1.0",
     "fuse.js": "^7.0.0",
+    "jsdom": "^27.3.0",
     "preact-render-to-string": "^6.6.3",
     "sharp": "^0.34.5",
     "typescript": "^5.3.3",
-    "vite": "^5.4.11"
+    "vite": "^5.4.11",
+    "vitest": "^2.1.0"
   }
 }
