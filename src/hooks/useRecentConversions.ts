@@ -15,6 +15,24 @@ const STORAGE_KEY = 'converter-recent-conversions';
 const MAX_RECENT = 10;
 
 /**
+ * Type guard to validate RecentConversion objects
+ * Exported for testing
+ */
+export function isValidRecentConversion(item: unknown): item is RecentConversion {
+  if (typeof item !== 'object' || item === null) return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.fromUnitId === 'string' &&
+    typeof obj.toUnitId === 'string' &&
+    typeof obj.fromUnitName === 'string' &&
+    typeof obj.toUnitName === 'string' &&
+    typeof obj.fromValue === 'string' &&
+    typeof obj.toValue === 'string' &&
+    typeof obj.timestamp === 'number'
+  );
+}
+
+/**
  * Hook for managing recent conversions in localStorage
  */
 export function useRecentConversions() {
@@ -26,7 +44,9 @@ export function useRecentConversions() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        setRecents(parsed);
+        if (Array.isArray(parsed)) {
+          setRecents(parsed.filter(isValidRecentConversion).slice(0, MAX_RECENT));
+        }
       }
     } catch (error) {
       console.error('Failed to load recent conversions:', error);

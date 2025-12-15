@@ -1,4 +1,4 @@
-const CACHE_NAME = 'converter-v1';
+const CACHE_NAME = '__CACHE_VERSION__';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

@@ -25,3 +25,15 @@
 
 /
   Cache-Control: public, max-age=300, must-revalidate
+
+# Security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  # CSP with reporting - violations sent to /csp-report endpoint
+  # To enable reporting: set up an endpoint or use a service like report-uri.com
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://plausible.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; report-uri /csp-report; report-to csp-endpoint
+  # Modern Reporting API endpoint definition
+  Report-To: {"group":"csp-endpoint","max_age":10886400,"endpoints":[{"url":"/csp-report"}]}

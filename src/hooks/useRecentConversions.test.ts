@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/preact';
-import { useRecentConversions } from './useRecentConversions';
+import { useRecentConversions, isValidRecentConversion } from './useRecentConversions';
 import type { Unit } from '../data/types';
 
 // Helper to create mock units
@@ -215,6 +215,145 @@ describe('useRecentConversions', () => {
       });
 
       expect(result.current.recents[0].fromUnitId).toBe('meter');
+    });
+
+    it('should filter out invalid items from localStorage', async () => {
+      // Pre-populate localStorage with mixed valid and invalid items
+      const mixedData = [
+        {
+          fromUnitId: 'meter',
+          toUnitId: 'kilometer',
+          fromUnitName: 'Meter',
+          toUnitName: 'Kilometer',
+          fromValue: '1000',
+          toValue: '1',
+          timestamp: Date.now(),
+        },
+        {
+          // Missing required fields
+          fromUnitId: 'gram',
+          toUnitId: 'kilogram',
+        },
+        {
+          // Wrong types
+          fromUnitId: 123,
+          toUnitId: 'foot',
+          fromUnitName: 'Inch',
+          toUnitName: 'Foot',
+          fromValue: '12',
+          toValue: '1',
+          timestamp: 'not-a-number',
+        },
+        null,
+        'invalid string',
+      ];
+      localStorage.setItem('converter-recent-conversions', JSON.stringify(mixedData));
+
+      const { result } = renderHook(() => useRecentConversions());
+
+      // Wait for useEffect to load
+      await waitFor(() => {
+        expect(result.current.recents.length).toBe(1);
+      });
+
+      // Only the valid item should be loaded
+      expect(result.current.recents[0].fromUnitId).toBe('meter');
+    });
+
+    it('should handle non-array localStorage data gracefully', async () => {
+      // Store a non-array value
+      localStorage.setItem('converter-recent-conversions', JSON.stringify({ not: 'an array' }));
+
+      const { result } = renderHook(() => useRecentConversions());
+
+      // Should return empty array since data is not an array
+      await waitFor(() => {
+        expect(result.current.recents).toEqual([]);
+      });
+    });
+
+    it('should handle malformed JSON in localStorage gracefully', async () => {
+      // Store invalid JSON
+      localStorage.setItem('converter-recent-conversions', 'not valid json{');
+
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      const { result } = renderHook(() => useRecentConversions());
+
+      // Should return empty array and log error
+      await waitFor(() => {
+        expect(result.current.recents).toEqual([]);
+      });
+
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+    });
+  });
+
+  describe('isValidRecentConversion', () => {
+    it('should return true for valid RecentConversion objects', () => {
+      const valid = {
+        fromUnitId: 'meter',
+        toUnitId: 'kilometer',
+        fromUnitName: 'Meter',
+        toUnitName: 'Kilometer',
+        fromValue: '1000',
+        toValue: '1',
+        timestamp: Date.now(),
+      };
+      expect(isValidRecentConversion(valid)).toBe(true);
+    });
+
+    it('should return false for null', () => {
+      expect(isValidRecentConversion(null)).toBe(false);
+    });
+
+    it('should return false for undefined', () => {
+      expect(isValidRecentConversion(undefined)).toBe(false);
+    });
+
+    it('should return false for primitive values', () => {
+      expect(isValidRecentConversion('string')).toBe(false);
+      expect(isValidRecentConversion(123)).toBe(false);
+      expect(isValidRecentConversion(true)).toBe(false);
+    });
+
+    it('should return false for empty object', () => {
+      expect(isValidRecentConversion({})).toBe(false);
+    });
+
+    it('should return false for object missing required fields', () => {
+      expect(isValidRecentConversion({
+        fromUnitId: 'meter',
+        toUnitId: 'kilometer',
+        // missing other fields
+      })).toBe(false);
+    });
+
+    it('should return false for object with wrong field types', () => {
+      expect(isValidRecentConversion({
+        fromUnitId: 123, // should be string
+        toUnitId: 'kilometer',
+        fromUnitName: 'Meter',
+        toUnitName: 'Kilometer',
+        fromValue: '1000',
+        toValue: '1',
+        timestamp: Date.now(),
+      })).toBe(false);
+
+      expect(isValidRecentConversion({
+        fromUnitId: 'meter',
+        toUnitId: 'kilometer',
+        fromUnitName: 'Meter',
+        toUnitName: 'Kilometer',
+        fromValue: '1000',
+        toValue: '1',
+        timestamp: 'not a number', // should be number
+      })).toBe(false);
+    });
+
+    it('should return false for arrays', () => {
+      expect(isValidRecentConversion([])).toBe(false);
     });
   });
 });
